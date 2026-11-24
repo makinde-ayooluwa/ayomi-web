@@ -9,7 +9,7 @@ import { FaNairaSign } from 'react-icons/fa6';
 import { BiMoney } from 'react-icons/bi';
 import { useCart } from '../providers/cartProvider';
 
-export default function ProductDetails({addToCart}) {
+export default function ProductDetails({ addToCart }) {
     const { id } = useParams();
     const { getProductById } = useProduct();
     const product = getProductById(id);
@@ -18,7 +18,7 @@ export default function ProductDetails({addToCart}) {
         <div className='w-full'>
             <div className="grid grid-cols-1 lg:grid-cols-2 items-start justify-between mt-10">
                 <div className='w-full flex items-center justify-center'>
-                    <img src={"/logo.jpg"} className='rounded-[40px] shadow-lg border-0' alt={product.name} width={600} />
+                    <img src={product.image ?? "/logo.jpg"} className='rounded-[40px] shadow-lg border-0' alt={product.name} width={600} />
                 </div>
                 <div className='mx-5'>
                     <div className="text-[20px] font-extrabold uppercase">
@@ -50,7 +50,7 @@ export default function ProductDetails({addToCart}) {
                         </span>
                     </div>
                     <div className='grid grid-cols-1 lg:flex gap-3 justify-between items-center my-4'>
-                        <button className='p-4 bg-[var(--deep-purple)] text-white text-center w-full rounded-[10px] flex justify-center gap-2 font-bold' onClick={()=>addToCart(product)}>
+                        <button className='p-4 bg-[var(--deep-purple)] text-white text-center w-full rounded-[10px] flex justify-center gap-2 font-bold' onClick={() => addToCart(product)}>
                             <span>
                                 <ShoppingCart />
                             </span>
@@ -62,6 +62,13 @@ export default function ProductDetails({addToCart}) {
                             </span>
                             <span>Buy now</span>
                         </button>
+                    </div>
+                </div>
+            </div>
+            <div className='w-full my-10'>
+                <div className='m-7'>
+                    <div className='text-gray-600 font-bold'>
+                        <h1>RELATED PRODUCTS</h1>
                     </div>
                 </div>
             </div>
