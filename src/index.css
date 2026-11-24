@@ -5,9 +5,11 @@
   --header-height: 55px;
   --deep-purple: #49205f;
   --champagne-gold: #d6b56d;
+  --light-purple: #49205f7a;
   font-family: "Inter", sans-serif;
   --sidebar-collapsed: 270px;
   --sidebar-uncollapsed: 80px;
+  --yellow: #cfcf00;
 }
 
 @media (prefers-color-scheme: dark) {

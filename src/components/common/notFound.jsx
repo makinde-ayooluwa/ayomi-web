@@ -4,8 +4,8 @@ import { MdHome, MdArrowBack } from 'react-icons/md'
 
 export default function NotFound() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-5 py-10">
-            <div className="max-w-lg w-full text-center">
+        <div className="min-h-screen flex w-full items-center justify-center bg-gray-50 dark:bg-gray-950 px-5 py-10">
+            <div className="w-full text-center">
 
                 {/* 404 Illustration */}
                 <div className="relative mb-6">

@@ -3,7 +3,7 @@ import Header from '../components/layout/header'
 import Sidebar from '../components/layout/sidebar'
 import { MdCategory, MdHome, MdPerson, MdShoppingCart } from 'react-icons/md'
 
-export default function AppLayout({ children }) {
+export default function AppLayout({ children, search, products, setSearch, cartCount, addToCart, menuOpen, setMenuOpen }) {
     const links = [
         {
             title: "Home",
@@ -28,8 +28,8 @@ export default function AppLayout({ children }) {
     ]
     return (
         <div className='w-full'>
-            {/* <Header /> */}
-            <div className='grid grid-cols-[auto_5fr]'>
+            <Header products={products} search={search} setSearch={setSearch} addToCart={addToCart} cartCount={cartCount} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <div className=''>
                 {/* <Sidebar links={links} /> */}
                 {children}
             </div>

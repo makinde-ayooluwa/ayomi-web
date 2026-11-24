@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Search,
@@ -12,67 +11,11 @@ import {
   Headphones,
   X
 } from "lucide-react";
-
-const categories = [
-  { name: "All Products", image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500" },
-  { name: "Fashion", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500" },
-  { name: "Electronics", image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500" },
-  { name: "Accessories", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" },
-  { name: "Lifestyle", image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=500" }
-];
-
-const products = [
-  {
-    id: 1,
-    name: "Classic Minimalist Watch",
-    category: "Accessories",
-    price: 45000,
-    oldPrice: 58000,
-    rating: 4.8,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700",
-    tag: "Best Seller"
-  },
-  {
-    id: 2,
-    name: "Premium Everyday Sneakers",
-    category: "Fashion",
-    price: 38500,
-    oldPrice: 45000,
-    rating: 4.7,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
-    tag: "Popular"
-  },
-  {
-    id: 3,
-    name: "Wireless Headphones",
-    category: "Electronics",
-    price: 62000,
-    oldPrice: null,
-    rating: 4.9,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
-    tag: "New Arrival"
-  },
-  {
-    id: 4,
-    name: "Modern Leather Handbag",
-    category: "Fashion",
-    price: 52000,
-    oldPrice: 65000,
-    rating: 4.6,
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=700",
-    tag: "Limited Offer"
-  }
-];
-
+import { Link } from "react-router-dom";
 const formatPrice = (price) =>
   `₦${price.toLocaleString("en-NG")}`;
 
-export default function Homepage() {
-  const [selectedCategory, setSelectedCategory] = useState("All Products");
-  const [search, setSearch] = useState("");
-  const [cartCount, setCartCount] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
-
+export default function Homepage({products, categories, selectedCategory, setSelectedCategory, search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen}) {
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       selectedCategory === "All Products" ||
@@ -88,85 +31,23 @@ export default function Homepage() {
     <div className="min-h-screen bg-[#fafaf8] text-[#20251f]">
 
       {/* Announcement */}
-      <div className="bg-[#263b2d] px-4 py-2.5 text-center text-xs font-medium tracking-wide text-white">
+      <div className="bg-[var(--deep-purple)] px-4 py-2.5 text-center text-xs font-medium tracking-wide text-white">
         FREE DELIVERY ON ORDERS ABOVE ₦100,000
       </div>
 
       {/* Navbar */}
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
-
-          <a href="#" className="text-2xl font-black tracking-tight">
-            Mide<span className="text-[#78956f]">Vault.</span>
-          </a>
-
-          <nav className="hidden items-center gap-9 text-sm font-medium text-gray-600 md:flex">
-            <a href="#" className="text-[#263b2d]">Home</a>
-            <a href="#categories" className="hover:text-[#78956f]">Categories</a>
-            <a href="#products" className="hover:text-[#78956f]">Shop</a>
-            <a href="#about" className="hover:text-[#78956f]">About Us</a>
-          </nav>
-
-          <div className="hidden items-center gap-5 md:flex">
-            <div className="flex items-center rounded-full bg-gray-100 px-4 py-2.5">
-              <Search size={17} className="text-gray-500" />
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search products..."
-                className="w-36 bg-transparent pl-2 text-sm outline-none"
-              />
-            </div>
-
-            <button className="relative">
-              <ShoppingBag size={22} />
-              {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#78956f] text-xs text-white">
-                  {cartCount}
-                </span>
-              )}
-            </button>
-          </div>
-
-          <div className="flex items-center gap-4 md:hidden">
-            <button className="relative">
-              <ShoppingBag size={21} />
-              {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#78956f] text-xs text-white">
-                  {cartCount}
-                </span>
-              )}
-            </button>
-
-            <button onClick={() => setMenuOpen(!menuOpen)}>
-              {menuOpen ? <X size={23} /> : <Menu size={23} />}
-            </button>
-          </div>
-        </div>
-
-        {menuOpen && (
-          <div className="border-t border-gray-100 bg-white px-6 py-5 md:hidden">
-            <nav className="flex flex-col gap-5 text-sm font-medium">
-              <a href="#" onClick={() => setMenuOpen(false)}>Home</a>
-              <a href="#categories" onClick={() => setMenuOpen(false)}>Categories</a>
-              <a href="#products" onClick={() => setMenuOpen(false)}>Shop</a>
-              <a href="#about" onClick={() => setMenuOpen(false)}>About Us</a>
-            </nav>
-          </div>
-        )}
-      </header>
 
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-20 lg:px-8">
 
         <div className="max-w-xl">
-          <span className="mb-6 inline-flex rounded-full bg-[#e9eee6] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#526d4b]">
+          <span className="mb-6 inline-flex rounded-full bg-[var(--light-purple)] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[var(--deep-purple)]">
             Your everyday shopping destination
           </span>
 
           <h1 className="text-5xl font-bold leading-[1.12] tracking-tight md:text-6xl lg:text-7xl">
             Find your
-            <span className="block text-[#78956f]">everyday</span>
+            <span className="block text-[var(--champagne-gold)]">everyday</span>
             essentials.
           </h1>
 
@@ -178,7 +59,7 @@ export default function Homepage() {
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <a
               href="#products"
-              className="inline-flex items-center gap-3 rounded-full bg-[#263b2d] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#3c5742]"
+              className="inline-flex items-center gap-3 rounded-full bg-[var(--champagne-gold)] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#3c5742]"
             >
               Explore Collection
               <ArrowRight size={17} />
@@ -221,7 +102,7 @@ export default function Homepage() {
             />
 
             <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/90 p-5 backdrop-blur-md">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#78956f]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--deep-purple)]">
                 Curated for you
               </p>
               <div className="mt-2 flex items-center justify-between gap-3">
@@ -244,7 +125,7 @@ export default function Homepage() {
             { icon: Star, title: "Quality Products", text: "Carefully selected items" }
           ].map((item) => (
             <div key={item.title} className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#edf1e9] text-[#526d4b]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#edf1e9] text-[var(--deep-purple)]">
                 <item.icon size={21} />
               </div>
               <div>
@@ -260,7 +141,7 @@ export default function Homepage() {
       <section id="categories" className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#78956f]">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--deep-purple)]">
               Explore our collection
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
@@ -301,7 +182,7 @@ export default function Homepage() {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#78956f]">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--deep-purple)]">
                 Handpicked for you
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
@@ -317,11 +198,10 @@ export default function Homepage() {
                 <button
                   key={category.name}
                   onClick={() => setSelectedCategory(category.name)}
-                  className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
-                    selectedCategory === category.name
-                      ? "bg-[#263b2d] text-white"
+                  className={`rounded-full px-4 py-2 text-xs font-semibold transition ${selectedCategory === category.name
+                      ? "bg-[var(--deep-purple)] text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   {category.name}
                 </button>
@@ -333,11 +213,13 @@ export default function Homepage() {
             {filteredProducts.map((product) => (
               <div key={product.id} className="group">
                 <div className="relative overflow-hidden rounded-2xl bg-[#f3f3f0]">
+                  <Link to={`/products/${product.id}`}>
                   <img
                     src={product.image}
                     alt={product.name}
                     className="h-56 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
                   />
+                  </Link>
 
                   <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold">
                     {product.tag}
@@ -351,8 +233,8 @@ export default function Homepage() {
                   </button>
 
                   <button
-                    onClick={() => setCartCount((count) => count + 1)}
-                    className="absolute bottom-3 left-3 right-3 rounded-full bg-[#263b2d] py-3 text-xs font-semibold text-white opacity-0 transition group-hover:opacity-100"
+                    onClick={() => addToCart(product)}
+                    className="absolute bottom-3 left-3 right-3 rounded-full bg-[var(--deep-purple)] py-3 text-xs font-semibold text-white opacity-0 transition group-hover:opacity-100"
                   >
                     Add to Cart
                   </button>
@@ -379,8 +261,8 @@ export default function Homepage() {
                   </div>
 
                   <button
-                    onClick={() => setCartCount((count) => count + 1)}
-                    className="mt-4 w-full rounded-full border border-gray-200 py-2.5 text-xs font-semibold transition hover:border-[#263b2d] hover:bg-[#263b2d] hover:text-white sm:hidden"
+                    onClick={() => addToCart(product)}
+                    className="mt-4 w-full rounded-full border border-gray-200 py-2.5 text-xs font-semibold transition hover:border-[#263b2d] hover:bg-[var(--deep-purple)] hover:text-white sm:hidden"
                   >
                     Add to Cart
                   </button>
@@ -399,7 +281,7 @@ export default function Homepage() {
 
       {/* Promotional banner */}
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[#263b2d] px-8 py-14 text-white md:px-16 md:py-20">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[var(--deep-purple)] px-8 py-14 text-white md:px-16 md:py-20">
           <div className="relative z-10 max-w-xl">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#b6c9a9]">
               Special collection
@@ -415,7 +297,7 @@ export default function Homepage() {
             </p>
             <a
               href="#products"
-              className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-bold text-[#263b2d] transition hover:bg-[#e9eee6]"
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--champagne-gold)] text-white px-7 py-4 text-sm font-bold text-[#263b2d] transition hover:border hover:border-[var(--champagne-gold)] hover:bg-[var(--deep-purple)]"
             >
               Shop Collection <ArrowRight size={17} />
             </a>
@@ -427,7 +309,7 @@ export default function Homepage() {
       </section>
 
       {/* Footer */}
-      <footer id="about" className="bg-[#18251c] text-white">
+      <footer id="about" className="bg-[var(--deep-purple)] text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
 
           <div>
@@ -475,7 +357,7 @@ export default function Homepage() {
                 placeholder="Your email address"
                 className="min-w-0 flex-1 bg-transparent px-4 text-xs text-gray-800 outline-none"
               />
-              <button className="rounded-full bg-[#78956f] px-4 py-3 text-xs font-bold text-white">
+              <button className="rounded-full bg-[var(--deep-purple)] px-4 py-3 text-xs font-bold text-white">
                 Join
               </button>
             </form>
