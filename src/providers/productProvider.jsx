@@ -5,7 +5,7 @@ export const ProductProvider = ({ children }) => {
         {
             id: "hgH",
             name: "Classic Minimalist Watch",
-            category: "Accessories",
+            category: "accessories",
             price: 45000,
             oldPrice: 58000,
             rating: 4.8,
@@ -15,7 +15,7 @@ export const ProductProvider = ({ children }) => {
         {
             id: 2,
             name: "Premium Everyday Sneakers",
-            category: "Fashion",
+            category: "fashion",
             price: 38500,
             oldPrice: 45000,
             rating: 4.7,
@@ -25,7 +25,7 @@ export const ProductProvider = ({ children }) => {
         {
             id: 3,
             name: "Wireless Headphones",
-            category: "Electronics",
+            category: "electronics",
             price: 62000,
             oldPrice: null,
             rating: 4.9,
@@ -35,7 +35,7 @@ export const ProductProvider = ({ children }) => {
         {
             id: 4,
             name: "Modern Leather Handbag",
-            category: "Fashion",
+            category: "fashion",
             price: 52000,
             oldPrice: 65000,
             rating: 4.6,
@@ -52,8 +52,17 @@ export const ProductProvider = ({ children }) => {
 
         }
     }
+    const getRelatedProductByCategory = (category)=>{
+        try {
+            const relatedProducts = products.filter((x)=>x.category == category);
+            console.log(relatedProducts)
+            return relatedProducts;
+        } catch (error) {
+            
+        }
+    }
     return (
-        <ProductContext.Provider value={{ products, getProductById }}>
+        <ProductContext.Provider value={{ products, getProductById, getRelatedProductByCategory }}>
             {children}
         </ProductContext.Provider>
     )

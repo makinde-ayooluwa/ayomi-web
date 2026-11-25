@@ -12,13 +12,15 @@ import {
   X
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ProductCard from "../components/interface/productCard";
+import Footer from "../components/layout/footer";
 const formatPrice = (price) =>
   `₦${price.toLocaleString("en-NG")}`;
 
-export default function Homepage({products, categories, selectedCategory, setSelectedCategory, search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen}) {
-  const filteredProducts = products.filter((product) => {
+export default function Homepage({ products, categories, selectedCategory, setSelectedCategory, search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen }) {
+  const filteredProducts = products.filter((_, index) => index < 4).filter((product) => {
     const matchesCategory =
-      selectedCategory === "All Products" ||
+      selectedCategory === "all" ||
       product.category === selectedCategory;
 
     const matchesSearch =
@@ -159,7 +161,7 @@ export default function Homepage({products, categories, selectedCategory, setSel
             <button
               key={category.name}
               onClick={() => {
-                setSelectedCategory(category.name);
+                setSelectedCategory(category.slug);
                 document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
               }}
               className="group text-left"
@@ -199,8 +201,8 @@ export default function Homepage({products, categories, selectedCategory, setSel
                   key={category.name}
                   onClick={() => setSelectedCategory(category.name)}
                   className={`rounded-full px-4 py-2 text-xs font-semibold transition ${selectedCategory === category.name
-                      ? "bg-[var(--deep-purple)] text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-[var(--deep-purple)] text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >
                   {category.name}
@@ -208,66 +210,14 @@ export default function Homepage({products, categories, selectedCategory, setSel
               ))}
             </div>
           </div>
-
+          <div className="flex items-center justify-end p-5">
+            <Link to={"/products"} className="hidden items-center gap-2 text-sm font-semibold md:flex">
+              View all <ArrowRight size={17} />
+            </Link>
+          </div>
           <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="group">
-                <div className="relative overflow-hidden rounded-2xl bg-[#f3f3f0]">
-                  <Link to={`/products/${product.id}`}>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-56 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
-                  />
-                  </Link>
-
-                  <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold">
-                    {product.tag}
-                  </span>
-
-                  <button
-                    aria-label="Add to wishlist"
-                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white"
-                  >
-                    <Heart size={17} />
-                  </button>
-
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="absolute bottom-3 left-3 right-3 rounded-full bg-[var(--deep-purple)] py-3 text-xs font-semibold text-white opacity-0 transition group-hover:opacity-100"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-
-                <div className="pt-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] text-gray-400">{product.category}</span>
-                    <span className="flex items-center gap-1 text-xs">
-                      <Star size={12} className="fill-yellow-400 text-yellow-400" />
-                      {product.rating}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-2 text-sm font-semibold">{product.name}</h3>
-
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-bold">{formatPrice(product.price)}</span>
-                    {product.oldPrice && (
-                      <span className="text-xs text-gray-400 line-through">
-                        {formatPrice(product.oldPrice)}
-                      </span>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="mt-4 w-full rounded-full border border-gray-200 py-2.5 text-xs font-semibold transition hover:border-[#263b2d] hover:bg-[var(--deep-purple)] hover:text-white sm:hidden"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
+            {filteredProducts.map((product, index) => (
+              <ProductCard product={product} addToCart={addToCart} key={index} />
             ))}
           </div>
 
@@ -307,70 +257,6 @@ export default function Homepage({products, categories, selectedCategory, setSel
           <div className="absolute -bottom-48 right-20 h-96 w-96 rounded-full bg-[#78956f]/20 blur-3xl" />
         </div>
       </section>
-
-      {/* Footer */}
-      <footer id="about" className="bg-[var(--deep-purple)] text-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
-
-          <div>
-            <h2 className="text-2xl font-black">
-              Mide<span className="text-[#91ad85]">Vault.</span>
-            </h2>
-            <p className="mt-5 max-w-xs text-sm leading-7 text-gray-400">
-              Your everyday shopping destination. Discover quality products
-              and enjoy a better shopping experience.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold">Quick Links</h3>
-            <div className="mt-5 flex flex-col gap-3 text-sm text-gray-400">
-              <a href="#" className="hover:text-white">Home</a>
-              <a href="#categories" className="hover:text-white">Categories</a>
-              <a href="#products" className="hover:text-white">Shop</a>
-              <a href="#about" className="hover:text-white">About Us</a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-bold">Customer Service</h3>
-            <div className="mt-5 flex flex-col gap-3 text-sm text-gray-400">
-              <a href="#" className="hover:text-white">Contact Us</a>
-              <a href="#" className="hover:text-white">Shipping Information</a>
-              <a href="#" className="hover:text-white">Returns & Refunds</a>
-              <a href="#" className="hover:text-white">FAQs</a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-bold">Stay in the loop</h3>
-            <p className="mt-4 text-sm leading-6 text-gray-400">
-              Get updates on new arrivals and special offers.
-            </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="mt-5 flex overflow-hidden rounded-full bg-white p-1"
-            >
-              <input
-                type="email"
-                required
-                placeholder="Your email address"
-                className="min-w-0 flex-1 bg-transparent px-4 text-xs text-gray-800 outline-none"
-              />
-              <button className="rounded-full bg-[var(--deep-purple)] px-4 py-3 text-xs font-bold text-white">
-                Join
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 px-5 py-6 text-xs text-gray-500 sm:flex-row lg:px-8">
-            <p>© {new Date().getFullYear()} Mide Vault. All rights reserved.</p>
-            <p>Designed for better everyday shopping.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,21 +1,24 @@
 import { Menu, Search, ShoppingBag, X } from 'lucide-react'
 import React, { useState } from 'react'
 import { useProduct } from '../../providers/productProvider';
-
-export default function Header({search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen, products}) {
+import { Link } from "react-router-dom"
+export default function Header({ search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen, products }) {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
 
-        <a href="/" className="text-2xl font-black tracking-tight">
+        {/* <a href="/" className="text-2xl font-black tracking-tight">
           Mide<span className="text-[#78956f]">Vault.</span>
-        </a>
+        </a> */}
+        <Link to={"/"}>
+          <img src="/logo.png" alt="" width={100} />
+        </Link>
 
         <nav className="hidden items-center gap-9 text-sm font-medium text-gray-600 md:flex">
           <a href="/" className="text-[#263b2d]">Home</a>
           <a href="/#categories" className="hover:text-[#78956f]">Categories</a>
-          <a href="/#products" className="hover:text-[#78956f]">Shop</a>
-          <a href="/#about" className="hover:text-[#78956f]">About Us</a>
+          <Link to="/products" className="hover:text-[#78956f]">Shop</Link>
+          {/* <a href="/#about" className="hover:text-[#78956f]">About Us</a> */}
         </nav>
 
         <div className="hidden items-center gap-5 md:flex">

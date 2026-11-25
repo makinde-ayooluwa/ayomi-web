@@ -8,17 +8,19 @@ import { GiBuyCard } from 'react-icons/gi';
 import { FaNairaSign } from 'react-icons/fa6';
 import { BiMoney } from 'react-icons/bi';
 import { useCart } from '../providers/cartProvider';
+import ProductCard from '../components/interface/productCard';
 
 export default function ProductDetails({ addToCart }) {
     const { id } = useParams();
-    const { getProductById } = useProduct();
+    const { getProductById, getRelatedProductByCategory } = useProduct();
     const product = getProductById(id);
-    console.log(product)
+    const relatedProducts = getRelatedProductByCategory(product.category);
+    console.log(relatedProducts)
     return (
         <div className='w-full'>
             <div className="grid grid-cols-1 lg:grid-cols-2 items-start justify-between mt-10">
                 <div className='w-full flex items-center justify-center'>
-                    <img src={product.image ?? "/logo.jpg"} className='rounded-[40px] shadow-lg border-0' alt={product.name} width={600} />
+                    <img src={product.image ?? "/logo.jpg"} className='rounded-[0px] shadow-lg border-0' alt={product.name} width={600} />
                 </div>
                 <div className='mx-5'>
                     <div className="text-[20px] font-extrabold uppercase">
@@ -69,6 +71,16 @@ export default function ProductDetails({ addToCart }) {
                 <div className='m-7'>
                     <div className='text-gray-600 font-bold'>
                         <h1>RELATED PRODUCTS</h1>
+                    </div>
+                    {relatedProducts.length < 2 && relatedProducts.find((x)=>x.id == product.id) &&
+                        <div className='text-center w-full m-7 text-gray-600'>
+                            No related products found
+                        </div>
+                    }
+                    <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2'>
+                        {relatedProducts.map((relProduct, index) => product.id !== relProduct.id && (
+                            <ProductCard product={relProduct} key={index} addToCart={addToCart} />
+                        ))}
                     </div>
                 </div>
             </div>

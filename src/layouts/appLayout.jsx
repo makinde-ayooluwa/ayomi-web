@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/layout/header'
 import Sidebar from '../components/layout/sidebar'
 import { MdCategory, MdHome, MdPerson, MdShoppingCart } from 'react-icons/md'
+import Footer from '../components/layout/footer'
 
 export default function AppLayout({ children, search, products, setSearch, cartCount, addToCart, menuOpen, setMenuOpen }) {
     const links = [
@@ -33,6 +34,7 @@ export default function AppLayout({ children, search, products, setSearch, cartC
                 {/* <Sidebar links={links} /> */}
                 {children}
             </div>
+            <Footer />
         </div>
     )
 }
