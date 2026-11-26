@@ -41,7 +41,8 @@ export const ProductProvider = ({ children }) => {
             rating: 4.6,
             image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=700",
             tag: "Limited Offer"
-        }
+        },
+        
     ]);
     const getProductById = (id) => {
         try {

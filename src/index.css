@@ -11,13 +11,13 @@
   --sidebar-uncollapsed: 80px;
   --yellow: #cfcf00;
 }
-
-@media (prefers-color-scheme: dark) {
+/* Remove dark-mode for now */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --general-bg: #151515;
     --header-shadow: #fff;
   }
-}
+} */
 
 body, html {
   margin: 0px;
@@ -46,6 +46,6 @@ body{
     width: var(--sidebar-collapsed);
   }
 }
-.sidebar-link{
-
+details{
+  transition: all 0.5s ease;
 }

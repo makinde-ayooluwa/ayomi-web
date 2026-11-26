@@ -1,10 +1,10 @@
-import { Menu, Search, ShoppingBag, X } from 'lucide-react'
+import { Menu, Search, ShoppingBag, ShoppingCart, X } from 'lucide-react'
 import React, { useState } from 'react'
 import { useProduct } from '../../providers/productProvider';
 import { Link } from "react-router-dom"
 export default function Header({ search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen, products }) {
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+    <header className="sticky top-0 z-100 border-b border-gray-100 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
 
         {/* <a href="/" className="text-2xl font-black tracking-tight">
@@ -16,7 +16,7 @@ export default function Header({ search, setSearch, cartCount, addToCart, menuOp
 
         <nav className="hidden items-center gap-9 text-sm font-medium text-gray-600 md:flex">
           <a href="/" className="text-[#263b2d]">Home</a>
-          <a href="/#categories" className="hover:text-[#78956f]">Categories</a>
+          {/* <a href="/categories" className="hover:text-[#78956f]">Categories</a> */}
           <Link to="/products" className="hover:text-[#78956f]">Shop</Link>
           {/* <a href="/#about" className="hover:text-[#78956f]">About Us</a> */}
         </nav>
@@ -32,25 +32,25 @@ export default function Header({ search, setSearch, cartCount, addToCart, menuOp
             />
           </div>
 
-          <button className="relative">
-            <ShoppingBag size={22} />
+          <Link className="relative" to={"/cart"}>
+            <ShoppingCart size={21} />
             {cartCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#78956f] text-xs text-white">
                 {cartCount}
               </span>
             )}
-          </button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-4 md:hidden">
-          <button className="relative">
-            <ShoppingBag size={21} />
+          <Link to={"/cart"} className="relative">
+            <ShoppingCart size={21} />
             {cartCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#78956f] text-xs text-white">
                 {cartCount}
               </span>
             )}
-          </button>
+          </Link>
 
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={23} /> : <Menu size={23} />}
@@ -61,10 +61,10 @@ export default function Header({ search, setSearch, cartCount, addToCart, menuOp
       {menuOpen && (
         <div className="border-t border-gray-100 bg-white px-6 py-5 md:hidden">
           <nav className="flex flex-col gap-5 text-sm font-medium">
-            <a href="#" onClick={() => setMenuOpen(false)}>Home</a>
-            <a href="#categories" onClick={() => setMenuOpen(false)}>Categories</a>
-            <a href="#products" onClick={() => setMenuOpen(false)}>Shop</a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>About Us</a>
+            <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+            {/* <a href="/categories" onClick={() => setMenuOpen(false)}>Categories</a> */}
+            <a href="/products" onClick={() => setMenuOpen(false)}>Shop</a>
+            {/* <a href="/about" onClick={() => setMenuOpen(false)}>About Us</a> */}
           </nav>
         </div>
       )}

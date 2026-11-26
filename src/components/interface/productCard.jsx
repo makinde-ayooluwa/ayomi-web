@@ -1,8 +1,8 @@
-import { Heart, Star } from 'lucide-react'
+import { Heart, ShoppingCart, Star } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 const formatPrice = (price) =>
-  `₦${price.toLocaleString("en-NG")}`;
+    `₦${price.toLocaleString("en-NG")}`;
 
 export default function ProductCard({ product, addToCart }) {
     return (
@@ -37,7 +37,7 @@ export default function ProductCard({ product, addToCart }) {
 
             <div className="pt-4">
                 <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] text-gray-400">{product.category}</span>
+                    <span className="text-[11px] text-gray-400 uppercase">{product.category}</span>
                     <span className="flex items-center gap-1 text-xs">
                         <Star size={12} className="fill-yellow-400 text-yellow-400" />
                         {product.rating}
@@ -57,9 +57,10 @@ export default function ProductCard({ product, addToCart }) {
 
                 <button
                     onClick={() => addToCart(product)}
-                    className="mt-4 w-full rounded-full border border-gray-200 py-2.5 text-xs font-semibold transition hover:border-[#263b2d] hover:bg-[var(--deep-purple)] hover:text-white sm:hidden"
+                    className="mt-4 w-full rounded-full border border-gray-200 py-2.5 text-xs font-semibold transition hover:border-[#263b2d] bg-[var(--deep-purple)] hover:bg-[var(--champagne-gold)] flex justify-center items-center gap-3 hover:text-white text-white sm:hidden"
                 >
-                    Add to Cart
+                    <ShoppingCart size={15} />
+                    <span>Add to Cart</span>
                 </button>
             </div>
         </div>

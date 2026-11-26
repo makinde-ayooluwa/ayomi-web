@@ -9,7 +9,9 @@ import {
   Truck,
   ShieldCheck,
   Headphones,
-  X
+  X,
+  TruckIcon,
+  TruckElectricIcon
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/interface/productCard";
@@ -17,7 +19,8 @@ import Footer from "../components/layout/footer";
 const formatPrice = (price) =>
   `₦${price.toLocaleString("en-NG")}`;
 
-export default function Homepage({ products, categories, selectedCategory, setSelectedCategory, search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen }) {
+export default function Homepage({ products, categories, search, setSearch, cartCount, addToCart, menuOpen, setMenuOpen }) {
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const filteredProducts = products.filter((_, index) => index < 4).filter((product) => {
     const matchesCategory =
       selectedCategory === "all" ||
@@ -43,7 +46,7 @@ export default function Homepage({ products, categories, selectedCategory, setSe
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-20 lg:px-8">
 
         <div className="max-w-xl">
-          <span className="mb-6 inline-flex rounded-full bg-[var(--light-purple)] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[var(--deep-purple)]">
+          <span className="mb-6 inline-flex rounded-full bg-[var(--light-purple)]/50 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[var(--deep-purple)]">
             Your everyday shopping destination
           </span>
 
@@ -60,15 +63,15 @@ export default function Homepage({ products, categories, selectedCategory, setSe
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <a
-              href="#products"
-              className="inline-flex items-center gap-3 rounded-full bg-[var(--champagne-gold)] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#3c5742]"
+              href="/products"
+              className="inline-flex items-center gap-3 rounded-full bg-[var(--champagne-gold)] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[var(--deep-purple)]"
             >
               Explore Collection
               <ArrowRight size={17} />
             </a>
 
             <a
-              href="#categories"
+              href="/categories"
               className="rounded-full border border-gray-300 px-7 py-4 text-sm font-semibold transition hover:border-[#263b2d]"
             >
               Browse Categories
@@ -121,7 +124,7 @@ export default function Homepage({ products, categories, selectedCategory, setSe
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
 
           {[
-            { icon: Truck, title: "Fast Delivery", text: "Get your orders delivered" },
+            { icon: TruckElectricIcon, title: "Fast Delivery", text: "Get your orders delivered" },
             { icon: ShieldCheck, title: "Secure Shopping", text: "Safe and secure checkout" },
             { icon: Headphones, title: "Customer Support", text: "We're here to help" },
             { icon: Star, title: "Quality Products", text: "Carefully selected items" }
@@ -151,9 +154,9 @@ export default function Homepage({ products, categories, selectedCategory, setSe
             </h2>
           </div>
 
-          <a href="#products" className="hidden items-center gap-2 text-sm font-semibold md:flex">
+          {/* <a href="/categories" className="hidden items-center gap-2 text-sm font-semibold md:flex">
             View all <ArrowRight size={17} />
-          </a>
+          </a> */}
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
@@ -199,8 +202,8 @@ export default function Homepage({ products, categories, selectedCategory, setSe
               {categories.map((category) => (
                 <button
                   key={category.name}
-                  onClick={() => setSelectedCategory(category.name)}
-                  className={`rounded-full px-4 py-2 text-xs font-semibold transition ${selectedCategory === category.name
+                  onClick={() => setSelectedCategory(category.slug)}
+                  className={`rounded-full px-4 py-2 text-xs font-semibold transition ${selectedCategory === category.slug
                     ? "bg-[var(--deep-purple)] text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
@@ -211,7 +214,7 @@ export default function Homepage({ products, categories, selectedCategory, setSe
             </div>
           </div>
           <div className="flex items-center justify-end p-5">
-            <Link to={"/products"} className="hidden items-center gap-2 text-sm font-semibold md:flex">
+            <Link to={"/products"} className="items-center gap-2 text-sm font-semibold flex">
               View all <ArrowRight size={17} />
             </Link>
           </div>
@@ -246,7 +249,7 @@ export default function Homepage({ products, categories, selectedCategory, setSe
               lifestyle.
             </p>
             <a
-              href="#products"
+              href="/products"
               className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--champagne-gold)] text-white px-7 py-4 text-sm font-bold text-[#263b2d] transition hover:border hover:border-[var(--champagne-gold)] hover:bg-[var(--deep-purple)]"
             >
               Shop Collection <ArrowRight size={17} />
