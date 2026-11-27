@@ -10,6 +10,7 @@ export default function Cart({ cartItems }) {
   })
   const deliveryFee = 4500;
   const processingFee = ((totalPrice + deliveryFee) * 0.02); // 2% processing fee
+  const grandTotal = (totalPrice + deliveryFee + processingFee);
   return (
     <div className='w-full p-2'>
       <div>
@@ -24,18 +25,18 @@ export default function Cart({ cartItems }) {
               <span>
                 <ShoppingBasket />
               </span>
-              <span>Continue shopping</span>
+              <span>Go shop</span>
             </Link>
           </div>
         </div>
       }
-      <div className='grid grid-cols-1 lg:grid-cols-[4fr_2fr] gap-10 p-3 justify-center items-center'>
+      <div className='grid grid-cols-1 lg:grid-cols-[4fr_2fr] gap-10 p-3 justify-center items-start'>
         <div className='grid gap-10 my-10'>
           {cartItems.map((item, index) => (
             <div key={index} className='rounded-2xl p-3 bg-white'>
               <div className='grid grid-cols-[3fr_6fr_1fr] gap-3 items-center justify-between'>
-                <div className='border rounded-2xl h-full justify-center items-center'>
-                  <img src="/logo.png" className='w-full' alt="" />
+                <div className='rounded-2xl h-full justify-center'>
+                  <img src={item.image ?? "/logo.png"} className='w-full' alt={item.name} />
                 </div>
                 <div className='grid gap-2'>
                   <span className='font-bold'>{item.name}</span>
@@ -67,7 +68,8 @@ export default function Cart({ cartItems }) {
             </div>
           ))}
         </div>
-        <div className='sticky top-24 bg-white rounded-2xl p-0'>
+        {cartItems.length > 0 &&
+         <div className='sticky top-24 bg-white rounded-2xl p-0'>
           <div className='border-b p-2'>
             <h1 className='font-bold text-2xl text-[var(--deep-purple)]'>Cart summary</h1>
           </div>
@@ -77,11 +79,23 @@ export default function Cart({ cartItems }) {
               <span className='font-bold'>NGN {totalPrice.toLocaleString()}</span>
             </div>
             <div>
-              <span className='font-extrabold'>Subtotal: </span>
-              <span className='font-bold'>NGN {totalPrice.toLocaleString()}</span>
+              <span className='font-extrabold'>Delivery Fee: </span>
+              <span className='font-bold'>NGN {deliveryFee.toLocaleString()}</span>
+            </div>
+            <div>
+              <span className='font-extrabold'>Processing Fee: </span>
+              <span className='font-bold'>NGN {processingFee.toLocaleString()}</span>
+            </div>
+            <div>
+              <span className='font-extrabold'>Grand Total: </span>
+              <span className='font-bold'>NGN {grandTotal.toLocaleString()}</span>
+            </div>
+            <div className='grid gap-3 items-center'>
+              <button className='p-3 text-center bg-[var(--deep-purple)] text-white font-bold rounded-2xl'>Proceed to checkout</button>
+              <button className='p-3 text-center border text-black font-bold rounded-2xl'>Continue shopping</button>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   )

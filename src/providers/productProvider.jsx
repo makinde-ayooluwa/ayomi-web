@@ -1,45 +1,49 @@
 import React, { createContext, useContext, useState } from 'react'
 const ProductContext = createContext();
+import iPhone from "../assets/images/phone.jpg"
+import Tablet from "../assets/images/ipad.jpg"
+import Headphone from "../assets/images/headphone.jpg"
+import Jeans from "../assets/images/jeans.jpg"
 export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([
         {
-            id: "hgH",
-            name: "Classic Minimalist Watch",
+            id: 1,
+            name: "iPhone 15 Pro Max 217x567",
             category: "accessories",
             price: 45000,
             oldPrice: 58000,
             rating: 4.8,
-            image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700",
+            image: iPhone,
             tag: "Best Seller"
         },
         {
             id: 2,
-            name: "Premium Everyday Sneakers",
-            category: "fashion",
+            name: "Samsung Tablet",
+            category: "accessories",
             price: 38500,
             oldPrice: 45000,
             rating: 4.7,
-            image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+            image: Tablet,
             tag: "Popular"
         },
         {
             id: 3,
             name: "Wireless Headphones",
-            category: "electronics",
+            category: "accessories",
             price: 62000,
             oldPrice: null,
             rating: 4.9,
-            image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
+            image: Headphone,
             tag: "New Arrival"
         },
         {
             id: 4,
-            name: "Modern Leather Handbag",
+            name: "Modern Leather Jeans Trouser",
             category: "fashion",
             price: 52000,
             oldPrice: 65000,
             rating: 4.6,
-            image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=700",
+            image: Jeans,
             tag: "Limited Offer"
         },
         
