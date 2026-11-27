@@ -13,7 +13,7 @@ import Cart from '../pages/cart'
 
 export default function AppRouter() {
     const [search, setSearch] = useState("");
-    const { cartCount, addToCart } = useCart();
+    const { cartCount, addToCart, cartItems } = useCart();
     const [menuOpen, setMenuOpen] = useState(false);
     const { products } = useProduct();
     const { categories } = useCategory();
@@ -81,7 +81,7 @@ export default function AppRouter() {
                         <Route index element={
                             <>
                                 <AppLayout addToCart={addToCart} cartCount={cartCount} menuOpen={menuOpen} search={search} setMenuOpen={setMenuOpen} setSearch={setSearch} products={products}>
-                                    <Cart />
+                                    <Cart cartItems={cartItems} />
                                 </AppLayout>
                             </>
                         }
